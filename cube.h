@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:13:25 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/08/30 18:49:13 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/21 18:20:41 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,24 @@ typedef struct	s_data
 	char	**map;
 	void	*mlx;
 	void	*mlx_window;
-	double		x_pos;
-	double		y_pos;
-	double		x_dir;
-	double		y_dir;
+	double	x_pos;
+	double	y_pos;
+	double	x_dir;
+	double	y_dir;
+	double	x_plane;
+	double	y_plane;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	deltadir_x;
+	double	deltadir_y;
+	double	sidestep_x;
+	double	sidestep_y;
+	int		wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	double	camera_x;
 	void	*img;
 	char	*addr;
 	int		line_length;
@@ -53,5 +67,11 @@ void	draw_direction(t_data *data);
 void	rotate_left(t_data *data, double angle);
 void	rotate_right(t_data *data, double angle);
 void	rotation(t_data *data, double angle);
+int		keyrelease(int keycode, t_data *data);
+int		keyhook(void *data);
+int		keypress(int keycode, t_data *data);
+void	cast_rays(t_data *data);
+void	calculation(t_data *data);
+void	dda(t_data *data);
 
 #endif
