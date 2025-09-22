@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/21 18:34:26 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:16:16 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	cast_rays(t_data *data)
 		data->ray_dir_y = data->y_dir + data->y_plane * data->camera_x;
 		calculation(data);
 		dda(data);
-		int	x_ray = data->x_pos + data->ray_dir_x * data->wall_dist;
-		int	y_ray = data->y_pos + data->ray_dir_y * data->wall_dist;
+		int	x_ray = data->x_pos + data->ray_dir_x * data->wall_dist * 64;
+		int	y_ray = data->y_pos + data->ray_dir_y * data->wall_dist * 64;
 		draw_line(data, x_ray, y_ray, 0x008000);
-		x++;
+		x+=20;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:38:01 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/21 18:33:53 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:11:33 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void	draw_map(t_data *data)
 	player_pos(data);
 	player_dir(data);
 	draw_player(data);
-	draw_direction(data);
-	// cast_rays(data);
+	// draw_direction(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img, 0, 0);
 }
 
@@ -96,15 +95,15 @@ void	draw_player(t_data *data)
 	}
 }
 
-void draw_direction(t_data *data)
-{
-	double	x_end;
-	double	y_end;
+// void draw_direction(t_data *data)
+// {
+// 	double	x_end;
+// 	double	y_end;
 
-	x_end = data->x_pos + data->x_dir * 50;
-	y_end = data->y_pos + data->y_dir * 50;
-	draw_line(data, (int)x_end, (int)y_end, 0x00ff0000);
-}
+// 	x_end = data->x_pos + data->x_dir * 50;
+// 	y_end = data->y_pos + data->y_dir * 50;
+// 	draw_line(data, (int)x_end, (int)y_end, 0x00ff0000);
+// }
 
 void	draw_line(t_data *data, int x_end, int y_end, int color)
 {

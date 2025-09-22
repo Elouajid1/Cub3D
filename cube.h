@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:13:25 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/21 18:20:41 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:46:48 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_data
 	double	deltadir_y;
 	double	sidestep_x;
 	double	sidestep_y;
+	double 	player_x;
+	double	player_y;
 	int		wall_dist;
 	int		map_x;
 	int		map_y;

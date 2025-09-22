@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/14 16:14:23 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:10:44 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,29 @@ void	player_dir(t_data *data)
 			{
 				data->x_dir = 1;
 				data->y_dir = 0;
-				data->x_plane = 0;
-				data->y_plane = 0.66;
+				data->x_plane = -(data->y_dir) * 0.66;
+				data->y_plane = data->x_dir * 0.66;
 			}
 			if (data->map[i][j] == 'W')
 			{
 				data->x_dir = -1;
 				data->y_dir = 0;
-				data->x_plane = 0;
-				data->y_plane = -0.66;
+				data->x_plane = -(data->y_dir) * 0.66;
+				data->y_plane = data->x_dir * 0.66;
 			}
 			if (data->map[i][j] == 'N')
 			{
 				data->x_dir = 0;
 				data->y_dir = -1;
-				data->x_plane = 0.66;
-				data->y_plane = 0;
+				data->x_plane = -(data->y_dir) * 0.66;
+				data->y_plane = data->x_dir * 0.66;
 			}
 			if (data->map[i][j] == 'S')
 			{
 				data->x_dir = 0;
 				data->y_dir = 1;
-				data->x_plane = -0.66;
-				data->y_plane = 0;
+				data->x_plane = -(data->y_dir) * 0.66;
+				data->y_plane = data->x_dir * 0.66;
 			}
 			j++;
 		}
