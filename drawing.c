@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:38:01 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/22 15:11:33 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:48:35 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ void	draw_tiles(t_data *data, int size)
 void	draw_map(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->mlx_window = mlx_new_window(data->mlx, 8 * 64, 7 * 64, "test");
-	data->img = mlx_new_image(data->mlx, 8 * 64, 7 * 64);
+	data->mlx_window = mlx_new_window(data->mlx, data->width, data->height, "test");
+	data->img = mlx_new_image(data->mlx, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
-	draw_tiles(data, 64);
+	// draw_tiles(data, 64);
 	player_pos(data);
 	player_dir(data);
-	draw_player(data);
+	// draw_player(data);
 	// draw_direction(data);
+	cast_rays(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img, 0, 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/22 12:10:44 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:55:42 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_pixel_put(t_data *img, int x, int y, int	color)
 {
 	char	*dest;
 
-	if (x >= 0 && y >= 0 && x < (8 * 64) && y < (8 * 64))
+	if (x >= 0 && y >= 0 && x < img->width && y < img->height)
 	{
 		dest = img->addr + (y * img->line_length + x * (img->bpp / 8));
 		*(unsigned int *)dest = color;
@@ -60,6 +60,21 @@ void	free_all(t_data *data)
 		data->mlx = NULL;
 	}
 	free(data);
+}
+
+void	map_dimensions(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i])
+		i++;
+	data->height = i * 64;
+	while (data->map[0][j])
+		j++;
+	data->width = j * 64;
 }
 
 void	player_dir(t_data *data)
@@ -119,4 +134,27 @@ void	rotation(t_data *data, double angle)
 	old_x_plane = data->x_plane;
 	data->x_plane = data->x_plane * cos(angle) - data->y_plane * sin(angle);
 	data->y_plane = old_x_plane * sin(angle) + data->y_plane * cos(angle);
+}
+
+void	coloring(t_data *data)
+{
+	int	x;
+	int	y;
+	int	color;
+
+	y = 0;
+	while (y < data->height)
+	{
+		x = 0;
+		while (x < data->width)
+		{
+			if (y < data->height / 2)
+				color = 0x87CEEB;
+			else
+				color = 0x808080;
+			my_pixel_put(data, x, y, color);
+			x++;
+		}
+		y++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:13:25 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/22 11:46:48 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:00:48 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 typedef struct	s_data
 {
+	int		height;
+	int		width;
 	int		w;
 	int		a;
 	int		s;
@@ -43,7 +45,7 @@ typedef struct	s_data
 	double	sidestep_y;
 	double 	player_x;
 	double	player_y;
-	int		wall_dist;
+	double		wall_dist;
 	int		map_x;
 	int		map_y;
 	int		step_x;
@@ -75,5 +77,8 @@ int		keypress(int keycode, t_data *data);
 void	cast_rays(t_data *data);
 void	calculation(t_data *data);
 void	dda(t_data *data);
+void	map_dimensions(t_data *data);
+void	draw_walls(t_data *data, int x);
+void	coloring(t_data *data);
 
 #endif
