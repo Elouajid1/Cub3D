@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/26 14:57:00 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:17:31 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@ void	read_map(char **map, char *str)
 	close(fd);
 }
 
-void	cast_rays(t_data *data)
-{
-	int	x = 0;
-	
-	while (x < data->width)
-	{
-		data->camera_x = 2 * x / (double)data->width - 1;
-		data->ray_dir_x = data->x_dir + data->x_plane * data->camera_x;
-		data->ray_dir_y = data->y_dir + data->y_plane * data->camera_x;
-		calculation(data);
-		dda(data);
-		draw_walls(data, x);
-		x++;
-	}
-}
-
 int main()
 {
 	char	**map;
@@ -58,6 +42,7 @@ int main()
 	data = malloc(sizeof(t_data));
 	map = malloc(sizeof(char *) * 12);
 	str = NULL;
+	bzero(data, sizeof(t_data));
 	read_map(map, str);
 	data->map = map;
 	map_dimensions(data);

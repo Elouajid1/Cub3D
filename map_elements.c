@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   element.c                                          :+:      :+:    :+:   */
+/*   map_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/26 14:55:42 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:28:30 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	my_pixel_put(t_data *img, int x, int y, int	color)
-{
-	char	*dest;
-
-	if (x >= 0 && y >= 0 && x < img->width && y < img->height)
-	{
-		dest = img->addr + (y * img->line_length + x * (img->bpp / 8));
-		*(unsigned int *)dest = color;
-	}
-}
 
 void	player_pos(t_data *data)
 {
@@ -49,6 +38,9 @@ void	player_pos(t_data *data)
 
 void	free_all(t_data *data)
 {
+	free_maps(data);
+	if (data->img)
+		mlx_destroy_image(data->mlx, data->img);
 	if (data->mlx_window)
 	{
 		mlx_destroy_window(data->mlx, data->mlx_window);
@@ -57,9 +49,26 @@ void	free_all(t_data *data)
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
+		free(data->mlx);
 		data->mlx = NULL;
 	}
 	free(data);
+}
+
+void	free_maps(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->map)
+	{
+		while (data->map[i])
+		{
+			free(data->map[i]);
+			i++;
+		}
+	}
+	free(data->map);
 }
 
 void	map_dimensions(t_data *data)
@@ -71,10 +80,10 @@ void	map_dimensions(t_data *data)
 	j = 0;
 	while (data->map[i])
 		i++;
-	data->height = i * 64;
+	data->map_height = i * 64;
 	while (data->map[0][j])
 		j++;
-	data->width = j * 64;
+	data->map_width = j * 64;
 }
 
 void	player_dir(t_data *data)
@@ -134,27 +143,4 @@ void	rotation(t_data *data, double angle)
 	old_x_plane = data->x_plane;
 	data->x_plane = data->x_plane * cos(angle) - data->y_plane * sin(angle);
 	data->y_plane = old_x_plane * sin(angle) + data->y_plane * cos(angle);
-}
-
-void	coloring(t_data *data)
-{
-	int	x;
-	int	y;
-	int	color;
-
-	y = 0;
-	while (y < data->height)
-	{
-		x = 0;
-		while (x < data->width)
-		{
-			if (y < data->height / 2)
-				color = 0x87CEEB;
-			else
-				color = 0x808080;
-			my_pixel_put(data, x, y, color);
-			x++;
-		}
-		y++;
-	}
 }

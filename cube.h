@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:13:25 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/09/26 15:00:48 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:23:21 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 #include <stdio.h>
 #include <math.h>
 #include <mlx.h>
+#include <strings.h>
+
+#define screen_width 1000
+#define screen_height 800
 
 typedef struct	s_data
 {
-	int		height;
-	int		width;
+	int		map_height;
+	int		map_width;
 	int		w;
 	int		a;
 	int		s;
@@ -45,7 +49,7 @@ typedef struct	s_data
 	double	sidestep_y;
 	double 	player_x;
 	double	player_y;
-	double		wall_dist;
+	double	wall_dist;
 	int		map_x;
 	int		map_y;
 	int		step_x;
@@ -56,6 +60,7 @@ typedef struct	s_data
 	int		line_length;
 	int		bpp;
 	int		endian;
+	int		side;
 }	t_data;
 
 void	draw_tiles(t_data *data, int size);
@@ -80,5 +85,6 @@ void	dda(t_data *data);
 void	map_dimensions(t_data *data);
 void	draw_walls(t_data *data, int x);
 void	coloring(t_data *data);
+void	free_maps(t_data *data);
 
 #endif
