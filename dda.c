@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:07:56 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/06 16:30:06 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/10/16 10:28:53 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ void	dda(t_data *data)
 	}
 	data->side = side;
 	if (side == 0)
-		data->wall_dist = (data->map_x - data->player_x + (1 - data->step_x) / 2.0) / data->ray_dir_x;
+		data->wall_dist = data->sidestep_x - data->deltadir_x;
 	else
-		data->wall_dist = (data->map_y - data->player_y + (1 - data->step_y) / 2.0) / data->ray_dir_y;
+		data->wall_dist = data->sidestep_y - data->deltadir_y;
 }
 
 void	cast_rays(t_data *data)
