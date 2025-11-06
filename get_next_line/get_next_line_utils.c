@@ -41,7 +41,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (str);
 }
 
-int	ft_strchr(const char *s, char c)
+int	ft_strchr_i(const char *s, char c)
 {
 	if (!s)
 		return (0);

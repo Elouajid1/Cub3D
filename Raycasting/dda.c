@@ -6,11 +6,11 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:07:56 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/16 10:28:53 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/10/06 16:30:06 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cub3d.h"
 
 void	calculation(t_data *data)
 {

@@ -80,7 +80,7 @@ char	*ft_rfile(int fd, char *buffer)
 	buf = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buf)
 		return (NULL);
-	while (!(ft_strchr(buffer, '\n')))
+	while (!(ft_strchr_i(buffer, '\n')))
 	{
 		r = read(fd, buf, BUFFER_SIZE);
 		if (r < 0)

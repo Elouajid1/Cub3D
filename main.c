@@ -6,49 +6,68 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/06 16:17:31 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:57:00 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cub3d.h"
 
-void	read_map(char **map, char *str)
+int    initilaize_data(t_game *game)
 {
-	int		fd;
-	int		i;
+    int i;
 
-	i = 0;
-	fd = open("./map.cub", O_RDONLY);
-	str = get_next_line(fd);
-	while (str)
-	{
-		map[i] = ft_strdup(str);
-		free(str);
-		str = get_next_line(fd);
-		i++;
-	}
-	map[i] = NULL;
-	close(fd);
+    i = 0;
+    game->player.index = 0;
+    game->line_length = 0;
+    game->config.map.map_grid = malloc((sizeof(char *) * MAX_HEIGHT));
+    if (!game->config.map.map_grid)
+        return (ERROR);
+    if (!game->config.map.map_grid)
+        return (ERROR);
+    while (i < 256)
+    {
+        i++;
+        game->config.map.map_grid[i] = NULL;
+    }
+    return (SUCCESS);
 }
 
-int main()
+int main(int ac, char **av)
 {
-	char	**map;
-	char	*str;
-	int		i;
-	t_data	*data;
+	t_game *game;
 
-	i = 0;
-	data = malloc(sizeof(t_data));
-	map = malloc(sizeof(char *) * 12);
-	str = NULL;
-	bzero(data, sizeof(t_data));
-	read_map(map, str);
-	data->map = map;
-	map_dimensions(data);
-	draw_map(data);
-	mlx_hook(data->mlx_window, 2, 1L<<0, keypress, data);
-	mlx_hook(data->mlx_window, 3, 1L<<1, keyrelease, data);
-	mlx_loop_hook(data->mlx, keyhook, data);
-	mlx_loop(data->mlx);
+    if (ac < 2)
+    {
+        ft_putendl_fd("Error: missing map file argument", 2);
+        return (ERROR);
+    }
+    if (!av[1])
+        return (file_not_found(av[1])); 
+    game = malloc(sizeof(t_game));
+    if (!game)
+        return (ERROR);
+    ft_bzero(game, sizeof(t_game));
+    if (initilaize_data(game) != SUCCESS)
+    {
+        free_all_data(game);
+        free(game);
+        return (ERROR);
+    }
+    if (parse_map(game, av[1]) != SUCCESS)
+    {
+        free_all_data(game);
+        free(game);
+        return (ERROR);
+    }
+	game->data = malloc(sizeof(t_data));
+	game->data->map = game->config.map.map_grid;
+	map_dimensions(game->data);
+	draw_map(game);
+	mlx_hook(game->data->mlx_window, 2, 1L<<0, keypress, game->data);
+	mlx_hook(game->data->mlx_window, 3, 1L<<1, keyrelease, game->data);
+	mlx_loop_hook(game->data->mlx, keyhook, game->data);
+	mlx_loop(game->data->mlx);
+    free_all_data(game);
+    free(game);
+    return (0);
 }

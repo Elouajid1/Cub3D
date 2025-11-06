@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cub3d.h"
 
 void	player_pos(t_data *data)
 {
@@ -35,6 +35,23 @@ void	player_pos(t_data *data)
 		i++;
 	}
 }
+
+void    load_textures(t_data *data, t_tex *tex, char *path)
+{
+    tex->img = mlx_xpm_file_to_image(data->mlx, path, &tex->width, &tex->height);
+    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
+}
+
+void	load_all_textures(t_game *game)
+{
+	t_data *data = game->data;
+
+	load_texture(data, &data->tex_no, game->config.north);
+	load_texture(data, &data->tex_so, game->config.south);
+	load_texture(data, &data->tex_ea, game->config.east);
+	load_texture(data, &data->tex_we, game->config.west);
+}
+
 
 void	free_all(t_data *data)
 {
