@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:39:19 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/06 16:35:48 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:20:13 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,28 @@ int	keyhook(void *data)
 	keys = (t_data *)data;
 	if (keys->w == 1)
 	{
-		new_xpos += keys->x_dir * 0.5;
-		new_ypos += keys->y_dir * 0.5;
+		new_xpos += keys->x_dir * speed;
+		new_ypos += keys->y_dir * speed;
 	}
 	if (keys->a == 1)
 	{
-		new_xpos += keys->y_dir * 0.5;
-		new_ypos -= keys->x_dir * 0.5;
+		new_xpos += keys->y_dir * speed;
+		new_ypos -= keys->x_dir * speed;
 	}
 	if (keys->d == 1)
 	{
-		new_xpos -= keys->y_dir * 0.5;
-		new_ypos += keys->x_dir * 0.5;
+		new_xpos -= keys->y_dir * speed;
+		new_ypos += keys->x_dir * speed;
 	}
 	if (keys->s == 1)
 	{
-		new_xpos -= keys->x_dir * 0.5;
-		new_ypos -= keys->y_dir * 0.5;
+		new_xpos -= keys->x_dir * speed;
+		new_ypos -= keys->y_dir * speed;
 	}
 	if (keys->right == 1)
-		rotation(data, 0.01);
+		rotation(data, rot);
 	if (keys->left == 1)
-		rotation(data, -0.01);
+		rotation(data, -rot);
 	int	next_x = (int)(keys->x_pos + new_xpos) / 64;
 	int	next_y = (int)(keys->y_pos + new_ypos) / 64;
 	if (keys->map[(int)(keys->y_pos / 64)][(int)next_x] != '1')

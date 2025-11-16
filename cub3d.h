@@ -22,8 +22,11 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define speed 1
+# define rot 0.05
 # define screen_width 1000
 # define screen_height 800
+
 
 typedef struct s_tex
 {
@@ -80,6 +83,13 @@ typedef struct	s_data
 	int		bpp;
 	int		endian;
 	int		side;
+    int     texNum;
+    double  Wall_x;
+    double  fWallx;
+    double  texPos;
+    double  texStep;
+    int     texX;
+    int     texY;
 }	t_data;
 
 typedef struct s_rgb

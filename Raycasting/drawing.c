@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:38:01 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/06 16:26:18 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:59:19 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,20 @@ void	draw_map(t_game *game)
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
 	player_pos(data);
 	player_dir(data);
-	coloring(data);
-	cast_rays(data);
+	// coloring(data);
+	// cast_rays(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img, 0, 0);
 }
 
-// int	get_tex_color(t_tex *tex, int x, int y)
-// {
-// 	char *pixel;
+int	get_tex_color(t_tex *tex, int x, int y)
+{
+	char *pixel;
 
-// 	if (x < 0 || y < 0 || x >= tex->width || y >= tex->height)
-// 		return (0);
-// 	pixel = tex->addr + (y * tex->line_len + x * (tex->bpp / 8));
-// 	return (*(unsigned int *)pixel);
-// }
+	if (x < 0 || y < 0 || x >= tex->width || y >= tex->height)
+		return (0);
+	pixel = tex->addr + (y * tex->line_len + x * (tex->bpp / 8));
+	return (*(unsigned int *)pixel);
+}
 
 void	load_texture(t_data *data, t_tex *tex, char *path)
 {
@@ -80,10 +80,14 @@ void	load_texture(t_data *data, t_tex *tex, char *path)
 	}
 }
 
-void	draw_vertical(t_data *data, int	x, int start, int end, int color)
+void	draw_vertical(t_data *data, int	x, int start, int end)
 {
+	int	color;
 	while (start < end)
 	{
+		data->texY = (int)data->texPos;
+		data->texPos = data->texPos + data->texStep;
+		color = get_tex_color(data->wall_tex, data->texX, data->texY);
 		my_pixel_put(data, x, start, color);
 		start++;
 	}
@@ -95,6 +99,32 @@ void	draw_walls(t_data *data, int x)
 	int	start;
 	int	end;
 
+	if (data->map[data->map_y][data->map_x] == '1')
+		data->texNum = 0;
+	else
+		return ;
+	if (data->side == 0 && data->ray_dir_x > 0)
+		data->wall_tex = &data->tex_ea;
+	else if (data->side == 0 && data->ray_dir_x < 0)
+		data->wall_tex = &data->tex_we;
+	else if (data->side == 1 && data->ray_dir_y < 0)
+		data->wall_tex = &data->tex_no;
+	else
+		data->wall_tex = &data->tex_so;
+	if (data->side == 0)
+		data->Wall_x = data->player_y + data->wall_dist * data->ray_dir_y;
+	else
+		data->Wall_x = data->player_x + data->wall_dist * data->ray_dir_x;
+		
+	data->fWallx = data->Wall_x - floor(data->Wall_x);
+	
+	data->texX = (int)(data->fWallx * data->wall_tex->width);
+	
+	if (data->side == 0 && data->ray_dir_x > 0)
+		data->texX = data->wall_tex->width - data->texX - 1;
+	else if (data->side == 1 && data->ray_dir_y < 0)
+		data->texX = data->wall_tex->width - data->texX - 1;
+		
 	lineheight = (int)(screen_height / data->wall_dist);
 	start = -lineheight / 2 + screen_height / 2;
 	if (start < 0)
@@ -102,7 +132,12 @@ void	draw_walls(t_data *data, int x)
 	end = lineheight / 2 + screen_height / 2;
 	if (end >= screen_height)
 		end = screen_height - 1;
-	draw_vertical(data, x, start, end, 0xFF0000);
+		
+	data->texStep = data->wall_tex->height / (double)lineheight;
+	
+	data->texPos = (start - screen_height / 2 + lineheight / 2) * data->texStep;
+	
+	draw_vertical(data, x, start, end);
 }
 
 void	coloring(t_data *data)
