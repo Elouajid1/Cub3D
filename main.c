@@ -22,12 +22,10 @@ int    initilaize_data(t_game *game)
     game->config.map.map_grid = malloc((sizeof(char *) * MAX_HEIGHT));
     if (!game->config.map.map_grid)
         return (ERROR);
-    if (!game->config.map.map_grid)
-        return (ERROR);
-    while (i < 256)
+    while (i < MAX_HEIGHT)
     {
-        i++;
         game->config.map.map_grid[i] = NULL;
+        i++;
     }
     return (SUCCESS);
 }
@@ -69,5 +67,5 @@ int main(int ac, char **av)
 	mlx_loop(game->data->mlx);
     free_all_data(game);
     free(game);
-    return (0);
+    return (SUCCESS);
 }

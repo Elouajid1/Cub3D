@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_messages4.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/17 17:10:09 by moel-aid          #+#    #+#             */
+/*   Updated: 2025/11/17 17:10:13 by moel-aid         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../cub3d.h"
 
 int	forbidden_north_line(char *north_line)
@@ -40,7 +51,7 @@ int	forbidden_west_line(char *west_line)
 	return (ERROR);
 }
 
-int	map_row_is_short()
+int	map_row_is_short(void)
 {
 	ft_putendl_fd("Eroor", 2);
 	ft_putendl_fd("Map row can't be less than 2 characters !", 2);

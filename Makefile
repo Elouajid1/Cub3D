@@ -22,11 +22,13 @@ error_message/error_messages.c \
 get_next_line/get_next_line.c \
 get_next_line/get_next_line_utils.c \
 Parsing_rendering/parse_map.c \
-Parsing_rendering/error_functions.c \
+Parsing_rendering/general_parsing_funcs.c \
 Parsing_rendering/parse_map_directions.c \
 Parsing_rendering/parse_map_rgb.c \
 Parsing_rendering/parsing_lines_funcs.c \
-Parsing_rendering/start_game.c \
+Parsing_rendering/check_map_file.c \
+Parsing_rendering/map_padding.c \
+Parsing_rendering/walls_check.c \
 Parsing_rendering/validate_map.c \
 Parsing_rendering/validate_textures_lines.c \
 Raycasting/drawing.c \

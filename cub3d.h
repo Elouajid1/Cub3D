@@ -97,6 +97,10 @@ typedef struct s_rgb
     int r;
     int g;
     int b;
+    char    *red;
+    char    *green;
+    char    *blue;
+    char    **rgb_colors;
 }   t_rgb;
 
 typedef struct s_map
@@ -132,38 +136,89 @@ typedef struct s_game
     t_player    player;
     t_data      *data;
     size_t      line_length;
+    size_t      line_count;
     int         textures_data_count;
     int         player_seen;
     int         map_exist_flag;
 }   t_game;
-////////////////////////////////////////////////////////////////////////
-//                             PARSING FUNCTIONS                      //
-////////////////////////////////////////////////////////////////////////
 
-int     parse_map(t_game *game, char *filename);
-int     get_south_path(char *line, int index, t_game *game);
-int     get_north_path(char *line, int index, t_game *game);
-int     get_west_path(char *line, int index, t_game *game);
-int     get_east_path(char *line, int index, t_game *game);
-int     get_floor_rgb(t_game *game, char *line);
-int     get_ceiling_rgb(t_game *game, char *line);
-char    *skip_identifier_and_spaces(char *line, int index, int id_len);
-int     is_valid_rgb_line(char *rgb_line);
-int     has_only_digits(char *red, char *blue, char *green);
-int     start_game(t_game *game);
-int     validate_map_grid(t_game *game);
-int     player_is_duplicated(char *line, t_game *game);
-void    load_textures(t_data *data, t_tex *tex, char *path);
-int     check_north_texture_name(char *texture_line);
-int     check_south_texture_name(char *texture_line);
-int     check_east_texture_name(char *texture_line);
-int     check_west_texture_name(char *texture_line);
+/* ------------------------ Parsing main functions -------------------------- */
+
+int		parse_map(t_game *game, char *filename);
+int		get_map_copy_demensions(t_game *game, int fd);
+int		measure_map(size_t *height, size_t *max_width, char *filename);
+int		check_cub_extension(char *filename);
+
+/* ------------------------ Line processing --------------------------------- */
+
+int		process_line(t_game *game, char *line);
+int		fill_map_grid(t_game *game, char *line);
+int		is_map_line(char *line);
+int		player_is_duplicated(char *line, t_game *game);
+
+/* ------------------------ Map validation ---------------------------------- */
+
+int		validate_map_grid(t_game *game);
+int		all_lines_are_walled(size_t height, char **map_grid);
+int		line_is_walled(char *line);
+int		map_is_walled(char **map, size_t height, size_t width);
+int		if_space_is_walled(char **map, size_t height, size_t width);
+void	mark_border_spaces(char **map, int height, int width);
+int		is_identifier(char c, t_game *game);
+bool	is_walkable(char c);
+bool	char_is_wall(char **map, size_t *index, size_t height, size_t width);
+
+/* ------------------------ Map padding ------------------------------------- */
+
+int		pad_map(t_game *game);
+char	*pad_line(char *line, size_t max_len);
+
+/* ------------------------ Texture & RGB parsing --------------------------- */
+
+int		get_map_directions_rgb(t_game *game, char *line);
+int		get_north_path(char *line, int index, t_game *game);
+int		get_south_path(char *line, int index, t_game *game);
+int		get_west_path(char *line, int index, t_game *game);
+int		get_east_path(char *line, int index, t_game *game);
+int		get_floor_rgb(t_game *game, char *line);
+int		get_ceiling_rgb(t_game *game, char *line);
+
+/* ------------------------ Utility functions ------------------------------- */
+
+char	*skip_identifier_and_spaces(char *line, int index, int id_len);
+int		check_for_ids_existence(t_game *game);
+int		textures_before_map(t_game *game);
+int		is_valid_xpm_path(char *path);
+int		validate_texture_paths(t_config *config);
+
+/* ------------------------ RGB validation ---------------------------------- */
+
+int		parse_rgb(t_rgb *rgb, char *rgb_line);
+int		has_only_digits(char *red, char *blue, char *green);
+int		check_rgb_values(int red, int green, int blue);
+int		is_valid_rgb_char(char c);
+int		is_valid_rgb_line(char *rgb_line);
+
+/* ------------------------ Memory & error handling ------------------------- */
+
+void	free_array(char **double_array);
+void	free_rgb_array(char **rgb_array);
+int		malloc_failed(t_rgb *rgb);
+int		free_all_data(t_game *game);
+int		initilaize_data(t_game *game);
+int     safe_free(char *line);
+
+/* ------------------------ Game & rendering ------------------------------- */
+
+int		start_game(t_game *game);
+
 
 ////////////////////////////////////////////////////////////////////////
 //                             FREE FUNCTIONS                         //
 ////////////////////////////////////////////////////////////////////////
 
 void    free_array(char **double_array);
+void    free_rgb_array(char **rgb_array);
 int     free_all_data(t_game *game);
 int     free_if_malloc_failed(char *red, char *blue, char *green, char **rgb_colors);
 int     free_if_malloc_failed(char *red, char *blue, char *green, char **rgb_colors);
@@ -172,7 +227,6 @@ int     free_if_malloc_failed(char *red, char *blue, char *green, char **rgb_col
 //                             MAP CHECK FUNCTIONS                    //
 ////////////////////////////////////////////////////////////////////////
 
-int     check_for_duplicate_id(t_game *game);
 int     textures_before_map(t_game *game);
 int     is_map_line(char *line);
 
@@ -182,7 +236,7 @@ int     is_map_line(char *line);
 
 
 int     file_not_found(char *filename);
-int     malloc_failed(void);
+int     malloc_failure(void);
 int     invalid_extension(char *filename);
 int     empty_map(void);
 int     id_is_duplicate(int which_dir);
