@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:08:41 by moel-aid          #+#    #+#             */
-/*   Updated: 2025/11/17 17:08:44 by moel-aid         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:40:11 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	malloc_failed(t_rgb *rgb)
@@ -63,6 +64,8 @@ void	free_rgb_array(char **rgb_array)
 	free(rgb_array);
 }
 
+
+
 int	free_all_data(t_game *game)
 {
 	if (!game)
@@ -77,6 +80,7 @@ int	free_all_data(t_game *game)
 		free_array(game->config.map.flood_fill_copy);
 		game->config.map.flood_fill_copy = NULL;
 	}
+	free_textures(game->data);
 	free(game->config.north);
 	free(game->config.south);
 	free(game->config.west);

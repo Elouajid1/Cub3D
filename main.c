@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/12 11:42:18 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:40:21 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int main(int ac, char **av)
         return (ERROR);
     }
 	game->data = malloc(sizeof(t_data));
+    ft_bzero(game->data, sizeof(t_data));
 	game->data->map = game->config.map.map_grid;
 	map_dimensions(game->data);
 	draw_map(game);

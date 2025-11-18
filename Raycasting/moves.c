@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:39:19 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/14 11:20:13 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/18 12:53:44 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ int	keyhook(void *data)
 	t_data *keys;
 	double	new_xpos;
 	double	new_ypos;
-	int		radius;
 	
 	new_xpos = 0;
 	new_ypos = 0;
-	radius = 5;
 	keys = (t_data *)data;
 	if (keys->w == 1)
 	{
