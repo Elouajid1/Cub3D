@@ -17,40 +17,11 @@ void	draw_map(t_game *game)
 	t_data *data = game->data;
 	data->mlx = mlx_init();
 	load_all_textures(game);
-
-	// printf("NORTH: %s | %dx%d | bpp=%d | line=%d | addr=%p\n",
-	// game->config.north,
-	// game->data->tex_no.width, game->data->tex_no.height,
-	// game->data->tex_no.bpp, game->data->tex_no.line_len,
-	// game->data->tex_no.addr);
-
-	// printf("SOUTH: %s | %dx%d | bpp=%d | line=%d | addr=%p\n",
-	// game->config.south,
-	// game->data->tex_so.width, game->data->tex_so.height,
-	// game->data->tex_so.bpp, game->data->tex_so.line_len,
-	// game->data->tex_so.addr);
-
-	// printf("EAST:  %s | %dx%d | bpp=%d | line=%d | addr=%p\n",
-	// game->config.east,
-	// game->data->tex_ea.width, game->data->tex_ea.height,
-	// game->data->tex_ea.bpp, game->data->tex_ea.line_len,
-	// game->data->tex_ea.addr);
-
-	// printf("WEST:  %s | %dx%d | bpp=%d | line=%d | addr=%p\n",
-	// game->config.west,
-	// game->data->tex_we.width, game->data->tex_we.height,
-	// game->data->tex_we.bpp, game->data->tex_we.line_len,
-	// game->data->tex_we.addr);
-
-	// exit(1);
-
 	data->mlx_window = mlx_new_window(data->mlx, screen_width, screen_height, "test");
 	data->img = mlx_new_image(data->mlx, screen_width, screen_height);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
 	player_pos(data);
 	player_dir(data);
-	// coloring(data);
-	// cast_rays(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img, 0, 0);
 }
 
@@ -64,20 +35,21 @@ int	get_tex_color(t_tex *tex, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-void	load_texture(t_data *data, t_tex *tex, char *path)
+int		load_texture(t_data *data, t_tex *tex, char *path)
 {
 	tex->img = mlx_xpm_file_to_image(data->mlx, path, &tex->width, &tex->height);
 	if (!tex->img)
 	{
 		fprintf(stderr, "Error: failed to load texture: %s\n", path);
-		exit(EXIT_FAILURE);
+		return(ERROR);
 	}
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
 	if (!tex->addr)
 	{
 		fprintf(stderr, "Error: failed to get texture data: %s\n", path);
-		exit(EXIT_FAILURE);
+		return(ERROR);
 	}
+	return (SUCCESS);
 }
 
 void	draw_vertical(t_data *data, int	x, int start, int end)

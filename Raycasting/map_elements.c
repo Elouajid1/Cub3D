@@ -36,12 +36,6 @@ void	player_pos(t_data *data)
 	}
 }
 
-void    load_textures(t_data *data, t_tex *tex, char *path)
-{
-    tex->img = mlx_xpm_file_to_image(data->mlx, path, &tex->width, &tex->height);
-    tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
-}
-
 void	load_all_textures(t_game *game)
 {
 	t_data *data = game->data;
@@ -55,37 +49,21 @@ void	load_all_textures(t_game *game)
 
 void	free_all(t_data *data)
 {
-	free_maps(data);
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
-	if (data->mlx_window)
-	{
-		mlx_destroy_window(data->mlx, data->mlx_window);
-		data->mlx_window = NULL;
-	}
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		data->mlx = NULL;
-	}
+	cleanup_mlx(data);
+	// if (data->img)
+	// 	mlx_destroy_image(data->mlx, data->img);
+	// if (data->mlx_window)
+	// {
+	// 	mlx_destroy_window(data->mlx, data->mlx_window);
+	// 	data->mlx_window = NULL;
+	// }
+	// if (data->mlx)
+	// {
+	// 	mlx_destroy_display(data->mlx);
+	// 	free(data->mlx);
+	// 	data->mlx = NULL;
+	// }
 	free(data);
-}
-
-void	free_maps(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->map)
-	{
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-	}
-	free(data->map);
 }
 
 void	map_dimensions(t_data *data)

@@ -77,6 +77,7 @@ int	free_all_data(t_game *game)
 		free_array(game->config.map.flood_fill_copy);
 		game->config.map.flood_fill_copy = NULL;
 	}
+	// free_mlx(game->data);
 	free(game->config.north);
 	free(game->config.south);
 	free(game->config.west);

@@ -42,6 +42,7 @@ int main(int ac, char **av)
     if (!av[1])
         return (file_not_found(av[1])); 
     game = malloc(sizeof(t_game));
+    ft_bzero(game, sizeof(t_game));
     if (!game)
         return (ERROR);
     ft_bzero(game, sizeof(t_game));
@@ -58,6 +59,7 @@ int main(int ac, char **av)
         return (ERROR);
     }
 	game->data = malloc(sizeof(t_data));
+    ft_bzero((game->data), sizeof(t_data));
 	game->data->map = game->config.map.map_grid;
 	map_dimensions(game->data);
 	draw_map(game);
