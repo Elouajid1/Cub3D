@@ -12,6 +12,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = \
 main.c \
 free/free.c \
+free/free_mlx.c \
 error_message/error_messages0.c \
 error_message/error_messages1.c \
 error_message/error_messages2.c \

@@ -217,6 +217,7 @@ int		start_game(t_game *game);
 //                             FREE FUNCTIONS                         //
 ////////////////////////////////////////////////////////////////////////
 
+void	cleanup_mlx(t_data *game);
 void    free_array(char **double_array);
 void    free_rgb_array(char **rgb_array);
 int     free_all_data(t_game *game);
@@ -297,7 +298,7 @@ void	draw_walls(t_data *data, int x);
 void	coloring(t_data *data);
 void	free_maps(t_data *data);
 void	load_all_textures(t_game *game);
-void	load_texture(t_data *data, t_tex *tex, char *path);
+int	    load_texture(t_data *data, t_tex *tex, char *path);
 void    draw_textured_wall(t_data *data, int x);
 #endif
 

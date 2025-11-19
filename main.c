@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/18 17:40:21 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/19 09:35:08 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int main(int ac, char **av)
     if (!av[1])
         return (file_not_found(av[1])); 
     game = malloc(sizeof(t_game));
+    ft_bzero(game, sizeof(t_game));
     if (!game)
         return (ERROR);
     ft_bzero(game, sizeof(t_game));
