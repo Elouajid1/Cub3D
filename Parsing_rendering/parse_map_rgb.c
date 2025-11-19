@@ -16,7 +16,6 @@ int	is_valid_rgb_line(char *rgb_line)
 	int	i;
 
 	i = 0;
-	printf("%s", rgb_line);
 	while (rgb_line[i])
 	{
 		if (!ft_isalnum(rgb_line[i]) || rgb_line[i] != ','
@@ -63,7 +62,6 @@ int	parse_rgb(t_rgb *rgb, char *rgb_line)
 	free(rgb->blue);
 	free(rgb->red);
 	free(rgb->green);
-	free_rgb_array(rgb->rgb_colors);
 	return (check_rgb_values(rgb->r, rgb->g, rgb->b));
 }
 

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:39:19 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/18 12:53:44 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/14 11:20:13 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	keyhook(void *data)
 	t_data *keys;
 	double	new_xpos;
 	double	new_ypos;
+	int		radius;
 	
 	new_xpos = 0;
 	new_ypos = 0;
+	radius = 5;
 	keys = (t_data *)data;
 	if (keys->w == 1)
 	{
@@ -60,41 +62,41 @@ int	keyhook(void *data)
 	return (0);
 }
 
-int	keypress(int keycode, t_data *data)
+int	keypress(int keycode, t_game *game)
 {
 	if (keycode == 'w')
-		data->w = 1;
+		game->data->w = 1;
 	if (keycode == 'a')
-		data->a = 1;
+		game->data->a = 1;
 	if (keycode == 'd')
-		data->d = 1;
+		game->data->d = 1;
 	if (keycode == 's')
-		data->s = 1;
+		game->data->s = 1;
 	if (keycode == 65307)
 	{
-		free_all(data);
+		cleanup_mlx(game);
 		exit (1);
 	}
 	if (keycode == 65361)
-		data->left = 1;
+		game->data->left = 1;
 	if (keycode == 65363)
-		data->right = 1;
+		game->data->right = 1;
 	return (0);
 }
 
-int	keyrelease(int keycode, t_data *data)
+int	keyrelease(int keycode, t_game *game)
 {
 	if (keycode == 'w')
-		data->w = 0;
+		game->data->w = 0;
 	if (keycode == 'a')
-		data->a = 0;
+		game->data->a = 0;
 	if (keycode == 'd')
-		data->d = 0;
+		game->data->d = 0;
 	if (keycode == 's')
-		data->s = 0;
+		game->data->s = 0;
 	if (keycode == 65361)
-		data->left = 0;
+		game->data->left = 0;
 	if (keycode == 65363)
-		data->right = 0;
+		game->data->right = 0;
 	return (0);
 }

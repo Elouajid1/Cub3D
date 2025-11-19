@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/19 09:35:08 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:42:18 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int main(int ac, char **av)
         return (ERROR);
     }
 	game->data = malloc(sizeof(t_data));
-    ft_bzero(game->data, sizeof(t_data));
+    ft_bzero((game->data), sizeof(t_data));
 	game->data->map = game->config.map.map_grid;
 	map_dimensions(game->data);
 	draw_map(game);
-	mlx_hook(game->data->mlx_window, 2, 1L<<0, keypress, game->data);
-	mlx_hook(game->data->mlx_window, 3, 1L<<1, keyrelease, game->data);
+	mlx_hook(game->data->mlx_window, 2, 1L<<0, keypress, game);
+	mlx_hook(game->data->mlx_window, 3, 1L<<1, keyrelease, game);
 	mlx_loop_hook(game->data->mlx, keyhook, game->data);
 	mlx_loop(game->data->mlx);
     free_all_data(game);

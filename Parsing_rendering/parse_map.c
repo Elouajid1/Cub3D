@@ -108,7 +108,7 @@ int	parse_map(t_game *game, char *filename)
 	measure_map(&game->config.map.height, &game->config.map.width, filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (file_not_found(filename));
+		return (file_not_found(filename));	
 	if (get_map_copy_demensions(game, fd) != SUCCESS)
 	{
 		close(fd);
