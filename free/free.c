@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:08:41 by moel-aid          #+#    #+#             */
-/*   Updated: 2025/11/19 09:36:04 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/19 09:37:50 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	free_all_data(t_game *game)
 		free_array(game->config.map.flood_fill_copy);
 		game->config.map.flood_fill_copy = NULL;
 	}
-	free_textures(game->data);
 	// free_mlx(game->data);
 	free(game->config.north);
 	free(game->config.south);

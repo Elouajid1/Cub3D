@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mel-ouaj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:29:39 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/19 11:55:07 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:18:32 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_free(char *buffer)
 {
@@ -56,7 +56,10 @@ char	*gline(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	line = ft_calloc(i + 1, 1);
+	if (buffer[i] == '\n')
+		line = ft_calloc(i + 2, 1);
+	else
+		line = ft_calloc(i + 1, 1);
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -65,6 +68,8 @@ char	*gline(char *buffer)
 		line[i] = buffer[i];
 		i++;
 	}
+	if (buffer[i] == '\n')
+		line[i++] = '\n';
 	line[i] = '\0';
 	return (line);
 }
@@ -80,7 +85,7 @@ char	*ft_rfile(int fd, char *buffer)
 	buf = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buf)
 		return (NULL);
-	while (!(ft_sstrchr(buffer, '\n')))
+	while (!(ft_strchr(buffer, '\n')))
 	{
 		r = read(fd, buf, BUFFER_SIZE);
 		if (r < 0)
@@ -98,15 +103,15 @@ char	*ft_rfile(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[FD_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647 || fd > FD_MAX)
 		return (NULL);
-	buffer = ft_rfile(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_rfile(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = gline(buffer);
-	buffer = nline(buffer);
+	line = gline(buffer[fd]);
+	buffer[fd] = nline(buffer[fd]);
 	return (line);
 }
