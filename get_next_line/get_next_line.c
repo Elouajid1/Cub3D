@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:29:39 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/19 11:55:07 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/03/22 21:36:53 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_rfile(int fd, char *buffer)
 	buf = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!buf)
 		return (NULL);
-	while (!(ft_sstrchr(buffer, '\n')))
+	while (!(ft_strchr_i(buffer, '\n')))
 	{
 		r = read(fd, buf, BUFFER_SIZE);
 		if (r < 0)

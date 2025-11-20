@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 16:41:53 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/19 11:54:38 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:26:26 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (str);
 }
 
-int	ft_sstrchr(const char *s, char c)
+int	ft_strchr_i(const char *s, char c)
 {
 	if (!s)
 		return (0);

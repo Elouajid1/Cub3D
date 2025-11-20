@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 14:55:37 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/19 11:54:33 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:49:04 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+// # include "../cube.h"
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
@@ -24,8 +25,9 @@
 
 size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t count, size_t size);
-int		ft_sstrchr(const char *s, char c);
+int		ft_strchr_i(const char *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(const char *s);
 char	*get_next_line(int fd);
 
 #endif

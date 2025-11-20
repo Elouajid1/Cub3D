@@ -15,7 +15,9 @@ int	get_north_path(char *line, int index, t_game *game)
 {
 	char	*path;
 	char	*trimmed_path;
+	size_t	i;
 
+	i = 0;
 	if (game->config.seen_id[0] == 1)
 		return (id_is_duplicate(0));
 	path = skip_identifier_and_spaces(line, index, 2);

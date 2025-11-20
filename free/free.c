@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:08:41 by moel-aid          #+#    #+#             */
-/*   Updated: 2025/11/20 16:37:27 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:08:44 by moel-aid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	free_colors(char *red, char *green, char *blue)
 {
