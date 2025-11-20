@@ -29,6 +29,8 @@ void	free_rgb(t_rgb *rgb)
 {
 	int	i;
 
+	if (!rgb->rgb_colors)
+		return ;
 	if (rgb->rgb_colors)
 	{
 		i = 0;

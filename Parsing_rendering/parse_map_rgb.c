@@ -46,8 +46,6 @@ int	parse_rgb(t_rgb *rgb, char *rgb_line)
 	if (!rgb->rgb_colors || !rgb->rgb_colors[0] || !rgb->rgb_colors[1]
 		|| !rgb->rgb_colors[2])
 	{
-		if (rgb->rgb_colors)
-			free_rgb_array(rgb->rgb_colors);
 		return (ERROR);
 	}
 	rgb->red = ft_strtrim(rgb->rgb_colors[0], " \t");
@@ -55,13 +53,14 @@ int	parse_rgb(t_rgb *rgb, char *rgb_line)
 	rgb->blue = ft_strtrim(rgb->rgb_colors[2], " \t");
 	if (!rgb->red || !rgb->blue || !rgb->green
 		|| has_only_digits(rgb->red, rgb->blue, rgb->green) != SUCCESS)
-		return (malloc_failed(rgb));
+	{
+		free_colors(rgb->red, rgb->blue, rgb->green);
+		return (ERROR);
+	}
 	rgb->r = ft_atoi(rgb->red);
 	rgb->g = ft_atoi(rgb->green);
 	rgb->b = ft_atoi(rgb->blue);
-	free(rgb->blue);
-	free(rgb->red);
-	free(rgb->green);
+	free_colors(rgb->red, rgb->green, rgb->blue);
 	return (check_rgb_values(rgb->r, rgb->g, rgb->b));
 }
 
@@ -79,7 +78,7 @@ int	get_ceiling_rgb(t_game *game, char *line)
 	if (parse_rgb(&game->config.ceiling, rgb_start) != SUCCESS)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("invalid ceiling rgb line format!", 2);
+		ft_putendl_fd("ceiling rgb line is invalid or doesn't exists!", 2);
 		return (ERROR);
 	}
 	game->config.seen_id[5]++;
@@ -105,7 +104,7 @@ int	get_floor_rgb(t_game *game, char *line)
 	if (parse_rgb(&game->config.floor, rgb_start) != SUCCESS)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("invalid floor rgb line format!", 2);
+		ft_putendl_fd("floor rgb line is invalid or doesn't exists!", 2);
 		return (ERROR);
 	}
 	game->config.seen_id[4]++;

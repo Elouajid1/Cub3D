@@ -207,6 +207,11 @@ int		malloc_failed(t_rgb *rgb);
 int		free_all_data(t_game *game);
 int		initilaize_data(t_game *game);
 int     safe_free(char *line);
+void	free_textures(t_data *data);
+void	free_config(t_config *config);
+void	free_rgb(t_rgb *rgb);
+void	free_paths(t_config *config);
+void	free_colors(char *red, char *green , char *blue);
 
 /* ------------------------ Game & rendering ------------------------------- */
 

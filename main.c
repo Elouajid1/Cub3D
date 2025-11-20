@@ -54,8 +54,8 @@ int main(int ac, char **av)
     }
     if (parse_map(game, av[1]) != SUCCESS)
     {
-        free_all_data(game);
-        free(game);
+        free_array(game->config.map.map_grid);
+        cleanup_mlx(game);
         return (ERROR);
     }
 	game->data = malloc(sizeof(t_data));
