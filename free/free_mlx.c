@@ -11,20 +11,55 @@
 /* ************************************************************************** */
 #include "../cub3d.h"
 
-void	free_maps(t_data *data)
+void	free_paths(t_config *config)
+{
+	if (!config)
+		return ;
+	if (config->north)
+		free(config->north);
+	if (config->south)
+		free(config->south);
+	if (config->east)
+		free(config->east);
+	if (config->west)
+		free(config->west);
+}
+
+void	free_rgb(t_rgb *rgb)
 {
 	int	i;
 
-	i = 0;
-	if (data->map)
+	if (!rgb->rgb_colors)
+		return ;
+	if (rgb->rgb_colors)
 	{
-		while (data->map[i])
+		i = 0;
+		while (rgb->rgb_colors[i])
 		{
-			free(data->map[i]);
+			free(rgb->rgb_colors[i]);
 			i++;
 		}
+		free(rgb->rgb_colors);
 	}
-	free(data->map);
+}
+
+void	free_config(t_config *config)
+{
+	int	i;
+
+	free_paths(config);
+	free_rgb(&config->floor);
+	free_rgb(&config->ceiling);
+	if (config->map.flood_fill_copy)
+	{
+		i = 0;
+		while (config->map.flood_fill_copy[i])
+		{
+			free(config->map.flood_fill_copy[i]);
+			i++;
+		}
+		free(config->map.flood_fill_copy);
+	}
 }
 
 void	free_textures(t_data *data)
@@ -39,17 +74,26 @@ void	free_textures(t_data *data)
 		mlx_destroy_image(data->mlx, data->tex_we.img);
 }
 
-void	cleanup_mlx(t_data *data)
+void	cleanup_mlx(t_game *game)
 {
-	free_textures(data);
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
-	if (data->mlx_window)
-		mlx_destroy_window(data->mlx, data->mlx_window);
-	if (data->mlx)
+	t_data	*data;
+
+	data = game->data;
+	if (data)
 	{
-		mlx_destroy_display(data->mlx);  // Linux only
-		free(data->mlx);
+		free_textures(data);
+		if (data->img)
+			mlx_destroy_image(data->mlx, data->img);
+		if (data->mlx_window)
+			mlx_destroy_window(data->mlx, data->mlx_window);
+		if (data->mlx)
+		{
+			mlx_destroy_display(data->mlx);
+			free(data->mlx);
+		}
+		free_array(data->map);
+		free(data);
 	}
-    free_maps(data);
+	free_config(&game->config);
+	free(game);
 }

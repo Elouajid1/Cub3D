@@ -49,7 +49,7 @@ void	load_all_textures(t_game *game)
 
 void	free_all(t_data *data)
 {
-	cleanup_mlx(data);
+	// cleanup_mlx(data);
 	// if (data->img)
 	// 	mlx_destroy_image(data->mlx, data->img);
 	// if (data->mlx_window)

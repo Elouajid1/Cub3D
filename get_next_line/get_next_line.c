@@ -101,6 +101,15 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
+	if (fd == -1)
+	{
+		if (buffer)
+		{
+			free(buffer);
+			buffer = NULL;
+		}
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
 	buffer = ft_rfile(fd, buffer);
@@ -110,3 +119,18 @@ char	*get_next_line(int fd)
 	buffer = nline(buffer);
 	return (line);
 }
+
+// char	*get_next_line(int fd)
+// {
+// 	static char	*buffer;
+// 	char		*line;
+
+// 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
+// 		return (NULL);
+// 	buffer = ft_rfile(fd, buffer);
+// 	if (!buffer)
+// 		return (NULL);
+// 	line = gline(buffer);
+// 	buffer = nline(buffer);
+// 	return (line);
+// }

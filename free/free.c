@@ -3,30 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:08:41 by moel-aid          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/11/20 16:32:31 by mel-ouaj         ###   ########.fr       */
+=======
+/*   Updated: 2025/11/17 17:08:44 by moel-aid         ###   ########.fr       */
+>>>>>>> origin/main
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../cub3d.h"
 
-int	malloc_failed(t_rgb *rgb)
+void	free_colors(char *red, char *green, char *blue)
 {
-	if (rgb->red)
-		free(rgb->red);
-	if (rgb->blue)
-		free(rgb->blue);
-	if (rgb->green)
-		free(rgb->green);
-	if (rgb->rgb_colors)
-		free_array(rgb->rgb_colors);
-	return (ERROR);
+	free(red);
+	free(blue);
+	free(green);
 }
 
 int	safe_free(char *line)
 {
+	get_next_line(-1);
 	if (line)
 		free(line);
 	return (ERROR);
@@ -63,8 +61,6 @@ void	free_rgb_array(char **rgb_array)
 	}
 	free(rgb_array);
 }
-
-
 
 int	free_all_data(t_game *game)
 {

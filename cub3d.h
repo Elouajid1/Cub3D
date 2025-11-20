@@ -207,6 +207,11 @@ int		malloc_failed(t_rgb *rgb);
 int		free_all_data(t_game *game);
 int		initilaize_data(t_game *game);
 int     safe_free(char *line);
+void	free_textures(t_data *data);
+void	free_config(t_config *config);
+void	free_rgb(t_rgb *rgb);
+void	free_paths(t_config *config);
+void	free_colors(char *red, char *green , char *blue);
 
 /* ------------------------ Game & rendering ------------------------------- */
 
@@ -217,7 +222,7 @@ int		start_game(t_game *game);
 //                             FREE FUNCTIONS                         //
 ////////////////////////////////////////////////////////////////////////
 
-void	cleanup_mlx(t_data *game);
+void	cleanup_mlx(t_game *game);
 void    free_array(char **double_array);
 void    free_rgb_array(char **rgb_array);
 int     free_all_data(t_game *game);
@@ -287,9 +292,9 @@ void	draw_direction(t_data *data);
 void	rotate_left(t_data *data, double angle);
 void	rotate_right(t_data *data, double angle);
 void	rotation(t_data *data, double angle);
-int		keyrelease(int keycode, t_data *data);
+int		keyrelease(int keycode, t_game *game);
 int		keyhook(void *data);
-int		keypress(int keycode, t_data *data);
+int		keypress(int keycode, t_game *game);
 void	cast_rays(t_data *data);
 void	calculation(t_data *data);
 void	dda(t_data *data);
