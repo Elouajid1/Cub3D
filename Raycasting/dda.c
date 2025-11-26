@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:07:56 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/21 15:28:42 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:48:19 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,17 @@ void	calculation(t_data *data)
 	}
 }
 
+void	check_sides(t_data *data)
+{
+	if (data->side == 0)
+		data->wall_dist = data->sidestep_x - data->deltadir_x;
+	else
+		data->wall_dist = data->sidestep_y - data->deltadir_y;
+}
+
 void	dda(t_data *data)
 {
-	int	hit;
-	int	side;
-
-	hit = 0;
-	side = 0;
+	int (hit), (side) = 0;
 	while (hit == 0)
 	{
 		if (data->sidestep_x < data->sidestep_y)
@@ -78,15 +82,12 @@ void	dda(t_data *data)
 		}
 		if (data->map_x < 0 || data->map_x >= (data->map_width / 64)
 			|| data->map_y < 0 || data->map_y >= (data->map_height / 64))
-			break ;
+			return ;
 		if (data->map[data->map_y][data->map_x] == '1')
 			hit = 1;
 	}
 	data->side = side;
-	if (side == 0)
-		data->wall_dist = data->sidestep_x - data->deltadir_x;
-	else
-		data->wall_dist = data->sidestep_y - data->deltadir_y;
+	check_sides(data);
 }
 
 void	cast_rays(t_data *data)

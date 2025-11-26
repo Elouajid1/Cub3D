@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/21 15:25:49 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:48:38 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,10 @@ void	rotation(t_data *data, double angle)
 	old_x_plane = data->x_plane;
 	data->x_plane = data->x_plane * cos(angle) - data->y_plane * sin(angle);
 	data->y_plane = old_x_plane * sin(angle) + data->y_plane * cos(angle);
+}
+
+int	close_win(t_game *game)
+{
+	cleanup_mlx(game);
+	exit(1);
 }
