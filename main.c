@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:15:54 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/12 11:42:18 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:42:22 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int main(int ac, char **av)
 	draw_map(game);
 	mlx_hook(game->data->mlx_window, 2, 1L<<0, keypress, game);
 	mlx_hook(game->data->mlx_window, 3, 1L<<1, keyrelease, game);
-	mlx_loop_hook(game->data->mlx, keyhook, game->data);
+    mlx_hook(game->data->mlx_window, 17, 1L<<17, close_win, game);
+	mlx_loop_hook(game->data->mlx, keyhook, &game->config);
 	mlx_loop(game->data->mlx);
     free_all_data(game);
     free(game);

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/10/06 16:28:30 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:48:38 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	player_pos(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'E' || data->map[i][j] == 'W'
-				|| data->map[i][j] == 'N'|| data->map[i][j] == 'S')
+				|| data->map[i][j] == 'N' || data->map[i][j] == 'S')
 			{
 				data->y_pos = i * 64 + 32;
 				data->x_pos = j * 64 + 32;
@@ -38,14 +38,14 @@ void	player_pos(t_data *data)
 
 void	load_all_textures(t_game *game)
 {
-	t_data *data = game->data;
+	t_data	*data;
 
+	data = game->data;
 	load_texture(data, &data->tex_no, game->config.north);
 	load_texture(data, &data->tex_so, game->config.south);
 	load_texture(data, &data->tex_ea, game->config.east);
 	load_texture(data, &data->tex_we, game->config.west);
 }
-
 
 void	free_all(t_data *data)
 {
@@ -81,6 +81,14 @@ void	map_dimensions(t_data *data)
 	data->map_width = j * 64;
 }
 
+void	set_numbers(t_data *data, int x, int y)
+{
+	data->x_dir = x;
+	data->y_dir = y;
+	data->x_plane = -(data->y_dir) * 0.66;
+	data->y_plane = data->x_dir * 0.66;
+}
+
 void	player_dir(t_data *data)
 {
 	int	i;
@@ -94,33 +102,13 @@ void	player_dir(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == 'E')
-			{
-				data->x_dir = 1;
-				data->y_dir = 0;
-				data->x_plane = -(data->y_dir) * 0.66;
-				data->y_plane = data->x_dir * 0.66;
-			}
+				set_numbers(data, 1, 0);
 			if (data->map[i][j] == 'W')
-			{
-				data->x_dir = -1;
-				data->y_dir = 0;
-				data->x_plane = -(data->y_dir) * 0.66;
-				data->y_plane = data->x_dir * 0.66;
-			}
+				set_numbers(data, -1, 0);
 			if (data->map[i][j] == 'N')
-			{
-				data->x_dir = 0;
-				data->y_dir = -1;
-				data->x_plane = -(data->y_dir) * 0.66;
-				data->y_plane = data->x_dir * 0.66;
-			}
+				set_numbers(data, 0, -1);
 			if (data->map[i][j] == 'S')
-			{
-				data->x_dir = 0;
-				data->y_dir = 1;
-				data->x_plane = -(data->y_dir) * 0.66;
-				data->y_plane = data->x_dir * 0.66;
-			}
+				set_numbers(data, 0, 1);
 			j++;
 		}
 		i++;
@@ -138,4 +126,10 @@ void	rotation(t_data *data, double angle)
 	old_x_plane = data->x_plane;
 	data->x_plane = data->x_plane * cos(angle) - data->y_plane * sin(angle);
 	data->y_plane = old_x_plane * sin(angle) + data->y_plane * cos(angle);
+}
+
+int	close_win(t_game *game)
+{
+	cleanup_mlx(game);
+	exit(1);
 }
