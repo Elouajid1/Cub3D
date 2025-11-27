@@ -12,63 +12,63 @@
 
 #include "../cub3d.h"
 
-int    initilaize_data(t_game *game)
+int	initilaize_data(t_game *game)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    game->player.index = 0;
-    game->line_length = 0;
-    game->config.map.map_grid = malloc((sizeof(char *) * MAX_HEIGHT));
-    if (!game->config.map.map_grid)
-        return (ERROR);
-    while (i < MAX_HEIGHT)
-    {
-        game->config.map.map_grid[i] = NULL;
-        i++;
-    }
-    return (SUCCESS);
+	i = 0;
+	game->player.index = 0;
+	game->line_length = 0;
+	game->config.map.map_grid = malloc((sizeof(char *) * MAX_HEIGHT));
+	if (!game->config.map.map_grid)
+		return (ERROR);
+	while (i < MAX_HEIGHT)
+	{
+		game->config.map.map_grid[i] = NULL;
+		i++;
+	}
+	return (SUCCESS);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_game *game;
+	t_game	*game;
 
-    if (ac < 2)
-    {
-        ft_putendl_fd("Error: missing map file argument", 2);
-        return (ERROR);
-    }
-    if (!av[1])
-        return (file_not_found(av[1])); 
-    game = malloc(sizeof(t_game));
-    ft_bzero(game, sizeof(t_game));
-    if (!game)
-        return (ERROR);
-    ft_bzero(game, sizeof(t_game));
-    if (initilaize_data(game) != SUCCESS)
-    {
-        free_all_data(game);
-        free(game);
-        return (ERROR);
-    }
-    if (parse_map(game, av[1]) != SUCCESS)
-    {
-        free_array(game->config.map.map_grid);
-        cleanup_mlx(game);
-        return (ERROR);
-    }
+	if (ac < 2)
+	{
+		ft_putendl_fd("Error: missing map file argument", 2);
+		return (ERROR);
+	}
+	if (!av[1])
+		return (file_not_found(av[1]));
+	game = malloc(sizeof(t_game));
+	ft_bzero(game, sizeof(t_game));
+	if (!game)
+		return (ERROR);
+	ft_bzero(game, sizeof(t_game));
+	if (initilaize_data(game) != SUCCESS)
+	{
+		free_all_data(game);
+		free(game);
+		return (ERROR);
+	}
+	if (parse_map(game, av[1]) != SUCCESS)
+	{
+		free_array(game->config.map.map_grid);
+		cleanup_mlx(game);
+		return (ERROR);
+	}
 	game->data = malloc(sizeof(t_data));
-    ft_bzero((game->data), sizeof(t_data));
+	ft_bzero((game->data), sizeof(t_data));
 	game->data->map = game->config.map.map_grid;
 	map_dimensions(game->data);
 	draw_map(game);
-	mlx_hook(game->data->mlx_window, 2, 1L<<0, keypress, game);
-	mlx_hook(game->data->mlx_window, 3, 1L<<1, keyrelease, game);
-    mlx_hook(game->data->mlx_window, 17, 1L<<17, close_win, game);
+	mlx_hook(game->data->mlx_window, 2, 1L << 0, keypress, game);
+	mlx_hook(game->data->mlx_window, 3, 1L << 1, keyrelease, game);
+	mlx_hook(game->data->mlx_window, 17, 1L << 17, close_win, game);
 	mlx_loop_hook(game->data->mlx, keyhook, &game->config);
 	mlx_loop(game->data->mlx);
-    free_all_data(game);
-    free(game);
-    return (SUCCESS);
+	free_all_data(game);
+	free(game);
+	return (SUCCESS);
 }

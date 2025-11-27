@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 14:16:16 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/26 16:48:38 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:05:58 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,6 @@ void	load_all_textures(t_game *game)
 	load_texture(data, &data->tex_so, game->config.south);
 	load_texture(data, &data->tex_ea, game->config.east);
 	load_texture(data, &data->tex_we, game->config.west);
-}
-
-void	free_all(t_data *data)
-{
-	// cleanup_mlx(data);
-	// if (data->img)
-	// 	mlx_destroy_image(data->mlx, data->img);
-	// if (data->mlx_window)
-	// {
-	// 	mlx_destroy_window(data->mlx, data->mlx_window);
-	// 	data->mlx_window = NULL;
-	// }
-	// if (data->mlx)
-	// {
-	// 	mlx_destroy_display(data->mlx);
-	// 	free(data->mlx);
-	// 	data->mlx = NULL;
-	// }
-	free(data);
 }
 
 void	map_dimensions(t_data *data)
@@ -113,23 +94,4 @@ void	player_dir(t_data *data)
 		}
 		i++;
 	}
-}
-
-void	rotation(t_data *data, double angle)
-{
-	double	old_x_dir;
-	double	old_x_plane;
-
-	old_x_dir = data->x_dir;
-	data->x_dir = data->x_dir * cos(angle) - data->y_dir * sin(angle);
-	data->y_dir = old_x_dir * sin(angle) + data->y_dir * cos(angle);
-	old_x_plane = data->x_plane;
-	data->x_plane = data->x_plane * cos(angle) - data->y_plane * sin(angle);
-	data->y_plane = old_x_plane * sin(angle) + data->y_plane * cos(angle);
-}
-
-int	close_win(t_game *game)
-{
-	cleanup_mlx(game);
-	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:38:01 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/24 15:46:16 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:22:03 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	draw_map(t_game *game)
 	data = game->data;
 	data->mlx = mlx_init();
 	load_all_textures(game);
-	data->mlx_window = mlx_new_window(data->mlx, screen_width, screen_height,
+	data->mlx_window = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"test");
-	data->img = mlx_new_image(data->mlx, screen_width, screen_height);
+	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length,
 			&data->endian);
 	player_pos(data);
@@ -39,34 +39,15 @@ int	get_tex_color(t_tex *tex, int x, int y)
 	return (*(unsigned int *)pixel);
 }
 
-int	load_texture(t_data *data, t_tex *tex, char *path)
-{
-	tex->img = mlx_xpm_file_to_image(data->mlx, path, &tex->width,
-			&tex->height);
-	if (!tex->img)
-	{
-		fprintf(stderr, "Error: failed to load texture: %s\n", path);
-		return (ERROR);
-	}
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len,
-			&tex->endian);
-	if (!tex->addr)
-	{
-		fprintf(stderr, "Error: failed to get texture data: %s\n", path);
-		return (ERROR);
-	}
-	return (SUCCESS);
-}
-
 void	draw_vertical(t_data *data, int x, int start, int end)
 {
 	int	color;
 
 	while (start < end)
 	{
-		data->texY = (int)data->texPos;
-		data->texPos = data->texPos + data->texStep;
-		color = get_tex_color(data->wall_tex, data->texX, data->texY);
+		data->tex_y = (int)data->texpos;
+		data->texpos = data->texpos + data->tex_step;
+		color = get_tex_color(data->wall_tex, data->tex_x, data->tex_y);
 		my_pixel_put(data, x, start, color);
 		start++;
 	}
@@ -74,9 +55,7 @@ void	draw_vertical(t_data *data, int x, int start, int end)
 
 void	set_tex(t_data *data)
 {
-	if (data->map[data->map_y][data->map_x] == '1')
-		data->texNum = 0;
-	else
+	if (data->map[data->map_y][data->map_x] != '1')
 		return ;
 	if (data->side == 0 && data->ray_dir_x > 0)
 		data->wall_tex = &data->tex_ea;
@@ -87,11 +66,11 @@ void	set_tex(t_data *data)
 	else
 		data->wall_tex = &data->tex_so;
 	if (data->side == 0)
-		data->Wall_x = data->player_y + data->wall_dist * data->ray_dir_y;
+		data->wall_x = data->player_y + data->wall_dist * data->ray_dir_y;
 	else
-		data->Wall_x = data->player_x + data->wall_dist * data->ray_dir_x;
-	data->fWallx = data->Wall_x - floor(data->Wall_x);
-	data->texX = (int)(data->fWallx * data->wall_tex->width);
+		data->wall_x = data->player_x + data->wall_dist * data->ray_dir_x;
+	data->fwallx = data->wall_x - floor(data->wall_x);
+	data->tex_x = (int)(data->fwallx * data->wall_tex->width);
 }
 
 void	draw_walls(t_data *data, int x)
@@ -102,58 +81,18 @@ void	draw_walls(t_data *data, int x)
 
 	set_tex(data);
 	if (data->side == 0 && data->ray_dir_x > 0)
-		data->texX = data->wall_tex->width - data->texX - 1;
+		data->tex_x = data->wall_tex->width - data->tex_x - 1;
 	else if (data->side == 1 && data->ray_dir_y < 0)
-		data->texX = data->wall_tex->width - data->texX - 1;
-	lineheight = (int)(screen_height / data->wall_dist);
-	start = -lineheight / 2 + screen_height / 2;
+		data->tex_x = data->wall_tex->width - data->tex_x - 1;
+	lineheight = (int)(SCREEN_HEIGHT / data->wall_dist);
+	start = -lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (start < 0)
 		start = 0;
-	end = lineheight / 2 + screen_height / 2;
-	if (end >= screen_height)
-		end = screen_height - 1;
-	data->texStep = data->wall_tex->height / (double)lineheight;
-	data->texPos = (start - screen_height / 2 + lineheight / 2) * data->texStep;
+	end = lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (end >= SCREEN_HEIGHT)
+		end = SCREEN_HEIGHT - 1;
+	data->tex_step = data->wall_tex->height / (double)lineheight;
+	data->texpos = (start - SCREEN_HEIGHT / 2 + lineheight / 2)
+		* data->tex_step;
 	draw_vertical(data, x, start, end);
-}
-
-int	to_hex(int r, int g, int b)
-{
-	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
-}
-
-void	coloring(t_data *data, t_config *config)
-{
-	int	x;
-	int	y;
-	int	color;
-
-	y = 0;
-	while (y < screen_height)
-	{
-		x = 0;
-		while (x < screen_width)
-		{
-			if (y < screen_height / 2)
-				color = to_hex(config->ceiling.r, config->ceiling.g,
-						config->ceiling.b);
-			else
-				color = to_hex(config->floor.r, config->floor.g,
-						config->floor.b);
-			my_pixel_put(data, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	my_pixel_put(t_data *img, int x, int y, int color)
-{
-	char	*dest;
-
-	if (x >= 0 && y >= 0 && x < screen_width && y < screen_height)
-	{
-		dest = img->addr + (y * img->line_length + x * (img->bpp / 8));
-		*(unsigned int *)dest = color;
-	}
 }

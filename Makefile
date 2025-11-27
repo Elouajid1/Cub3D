@@ -35,7 +35,9 @@ Parsing_rendering/validate_textures_lines.c \
 Raycasting/drawing.c \
 Raycasting/map_elements.c \
 Raycasting/moves.c \
-Raycasting/dda.c 
+Raycasting/dda.c \
+Raycasting/utils.c \
+Raycasting/checking.c
 
 LIBFT_SRCS = libft/ft_atoi.c \
              libft/ft_bzero.c \

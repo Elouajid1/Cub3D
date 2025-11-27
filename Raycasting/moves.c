@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 17:39:19 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/26 16:35:14 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:19:30 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,28 @@ void	movements(t_data *data, double *new_xpos, double *new_ypos)
 {
 	if (data->w == 1)
 	{
-		*new_xpos += data->x_dir * speed;
-		*new_ypos += data->y_dir * speed;
+		*new_xpos += data->x_dir * SPEED;
+		*new_ypos += data->y_dir * SPEED;
 	}
 	if (data->a == 1)
 	{
-		*new_xpos += data->y_dir * speed;
-		*new_ypos -= data->x_dir * speed;
+		*new_xpos += data->y_dir * SPEED;
+		*new_ypos -= data->x_dir * SPEED;
 	}
 	if (data->d == 1)
 	{
-		*new_xpos -= data->y_dir * speed;
-		*new_ypos += data->x_dir * speed;
+		*new_xpos -= data->y_dir * SPEED;
+		*new_ypos += data->x_dir * SPEED;
 	}
 	if (data->s == 1)
 	{
-		*new_xpos -= data->x_dir * speed;
-		*new_ypos -= data->y_dir * speed;
+		*new_xpos -= data->x_dir * SPEED;
+		*new_ypos -= data->y_dir * SPEED;
 	}
 	if (data->right == 1)
-		rotation(data, rot);
+		rotation(data, ROT);
 	if (data->left == 1)
-		rotation(data, -rot);
-}
-
-int	check_tile(t_data *data, int tile_x, int tile_y)
-{
-	if (tile_x < 0 || tile_x >= data->map_width / 64 || tile_y < 0
-		|| tile_y >= data->map_height / 64)
-		return (0);
-	if (data->map[tile_y][tile_x] == '1')
-		return (0);
-	return (1);
+		rotation(data, -ROT);
 }
 
 int	is_valid(t_data *data, double x, double y)

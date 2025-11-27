@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:07:56 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/26 17:06:09 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:15:20 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,22 @@ void	check_sides(t_data *data)
 
 void	dda(t_data *data)
 {
-	int (hit) = 0;
-	int (side) = 0;
+	int	hit;
+
+	hit = 0;
 	while (hit == 0)
 	{
 		if (data->sidestep_x < data->sidestep_y)
 		{
 			data->sidestep_x += data->deltadir_x;
 			data->map_x += data->step_x;
-			side = 0;
+			data->side = 0;
 		}
 		else
 		{
 			data->sidestep_y += data->deltadir_y;
 			data->map_y += data->step_y;
-			side = 1;
+			data->side = 1;
 		}
 		if (data->map_x < 0 || data->map_x >= (data->map_width / 64)
 			|| data->map_y < 0 || data->map_y >= (data->map_height / 64))
@@ -87,7 +88,6 @@ void	dda(t_data *data)
 		if (data->map[data->map_y][data->map_x] == '1')
 			hit = 1;
 	}
-	data->side = side;
 	check_sides(data);
 }
 
@@ -96,9 +96,9 @@ void	cast_rays(t_data *data)
 	int	x;
 
 	x = 0;
-	while (x < screen_width)
+	while (x < SCREEN_WIDTH)
 	{
-		data->camera_x = 2 * x / (double)screen_width - 1;
+		data->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
 		data->ray_dir_x = data->x_dir + data->x_plane * data->camera_x;
 		data->ray_dir_y = data->y_dir + data->y_plane * data->camera_x;
 		calculation(data);
