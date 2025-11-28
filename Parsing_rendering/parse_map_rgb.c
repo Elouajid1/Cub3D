@@ -67,9 +67,7 @@ int	parse_rgb(t_rgb *rgb, char *rgb_line)
 int	get_ceiling_rgb(t_game *game, char *line)
 {
 	char	*rgb_start;
-	int		i;
 
-	i = 0;
 	if (game->config.seen_id[5] > 0)
 		return (ERROR);
 	rgb_start = line + 1;
