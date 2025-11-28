@@ -6,7 +6,7 @@
 /*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 12:10:27 by mel-ouaj          #+#    #+#             */
-/*   Updated: 2025/11/28 10:29:53 by mel-ouaj         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:30:58 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ typedef struct s_data
 	double		y_plane;
 	double		ray_dir_x;
 	double		ray_dir_y;
-	double		deltadir_x;
-	double		deltadir_y;
+	double		deltadist_x;
+	double		deltadist_y;
 	double		sidestep_x;
 	double		sidestep_y;
 	double		player_x;
