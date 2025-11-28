@@ -54,6 +54,6 @@ int	forbidden_west_line(char *west_line)
 int	map_row_is_short(void)
 {
 	ft_putendl_fd("Eroor", 2);
-	ft_putendl_fd("Map row can't be less than 2 characters !", 2);
+	ft_putendl_fd("Map row's length can't be 2 characters !", 2);
 	return (ERROR);
 }

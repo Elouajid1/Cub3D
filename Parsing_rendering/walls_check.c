@@ -63,7 +63,7 @@ int	line_is_walled(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != '1')
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\t')
 			return (ERROR);
 		i++;
 	}
@@ -86,7 +86,7 @@ int	all_lines_are_walled(size_t height, char **map_grid)
 		i = 0;
 		while (map_grid[j][i] == ' ' || map_grid[j][i] == '\t')
 			i++;
-		if (map_grid[j][i] != '1')
+		if (map_grid[j][i] != '1' && map_grid[j][i] != '\0')
 			return (line_isnt_start_walled(j));
 		end = ft_strlen(map_grid[j]) - 1;
 		while (end >= 0

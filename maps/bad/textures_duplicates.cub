@@ -1,8 +1,8 @@
-NO textures/test/north.xpm
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
-EA textures/test/east.xpm
+NO Textures/wall.xpm
+SO Textures/wood.xpm
+WE Textures/west.xpm
+EA Textures/wall.xpm
+EA
 
 F 20,20,20
 C 200,200,200

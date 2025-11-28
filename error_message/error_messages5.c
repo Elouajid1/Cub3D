@@ -26,3 +26,9 @@ int	malloc_failure(void)
 	ft_putendl_fd("Malloc failed !!", 2);
 	return (ERROR);
 }
+
+int	missing_map_file(void)
+{
+	ft_putendl_fd("Error: missing map file argument", 2);
+	return (ERROR);
+}

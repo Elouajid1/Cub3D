@@ -48,26 +48,3 @@ int	get_map_directions_rgb(t_game *game, char *line)
 	ft_putendl_fd("Invalid Texture line !", 2);
 	return (ERROR);
 }
-
-// int	get_map_directions_rgb(t_game *game, char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (line[i] == ' ' || line[i] == '\t')
-// 		i++;
-// 	if (line[i] == 'N' && line[i + 1] == 'O')
-// 		return (get_north_path(line, i, game));
-// 	if (line[i] == 'S' && line[i + 1] == 'O')
-// 		return (get_south_path(line, i, game));
-// 	if (line[i] == 'W' && line[i + 1] == 'E')
-// 		return (get_west_path(line, i, game));
-// 	if (line[i] == 'E' && line[i + 1] == 'A')
-// 		return (get_east_path(line, i, game));
-// 	if (line[i] == 'F' && (line[i + 1] == ' ' || line[i + 1] == '\t'))
-// 		return (get_floor_rgb(game, line + i));
-// 	if (line[i] == 'C' && (line[i + 1] == ' ' || line[i + 1] == '\t'))
-// 		return (get_ceiling_rgb(game, line + i));\
-	
-// 	return (ERROR);
-// }

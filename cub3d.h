@@ -34,7 +34,7 @@
 # define EAST 2
 # define WEST 3
 # define SPEED 1
-# define ROT 0.05
+# define ROT 0.04
 # define SCREEN_WIDTH 1000
 # define SCREEN_HEIGHT 800
 
@@ -285,6 +285,7 @@ int				forbidden_east_line(char *east_line);
 int				forbidden_west_line(char *west_line);
 int				map_row_is_short(void);
 int				space_isnt_walled(void);
+int				missing_map_file(void);
 
 ////////////////////////////////////////////////////////////////////////
 //                             RAYCASTING FUNCTIONS                   //
@@ -310,7 +311,7 @@ int				close_win(t_game *game);
 void			cast_rays(t_data *data);
 void			calculation(t_data *data);
 void			dda(t_data *data);
-void			map_dimensions(t_data *data);
+void			map_dimensions(t_game *game);
 void			draw_walls(t_data *data, int x);
 void			coloring(t_data *data, t_config *config);
 void			free_maps(t_data *data);

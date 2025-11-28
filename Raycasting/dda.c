@@ -82,8 +82,8 @@ void	dda(t_data *data)
 			data->map_y += data->step_y;
 			data->side = 1;
 		}
-		if (data->map_x < 0 || data->map_x >= (data->map_width / 64)
-			|| data->map_y < 0 || data->map_y >= (data->map_height / 64))
+		if (data->map_x < 0 || data->map_x >= (data->map_width)
+			|| data->map_y < 0 || data->map_y >= (data->map_height))
 			return ;
 		if (data->map[data->map_y][data->map_x] == '1')
 			hit = 1;

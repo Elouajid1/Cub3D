@@ -45,7 +45,7 @@ int	check_for_ids_existence(t_game *game)
 
 int	process_line(t_game *game, char *line)
 {
-	if (ft_strlen(line) == 1)
+	if (ft_strlen(line) <= 2)
 		return (map_row_is_short());
 	if (is_map_line(line) == SUCCESS)
 	{

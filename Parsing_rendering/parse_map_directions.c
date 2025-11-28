@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 #include "../cub3d.h"
 
+int	check_texture_path_existence(char *path)
+{
+	if ((access(path, F_OK)) == -1)
+		return (ERROR);
+	return (SUCCESS);
+}
+
 int	get_north_path(char *line, int index, t_game *game)
 {
 	char	*path;
@@ -29,6 +36,8 @@ int	get_north_path(char *line, int index, t_game *game)
 	if (!game->config.north)
 		return (ERROR);
 	game->config.seen_id[0]++;
+	if (check_texture_path_existence(game->config.north) != SUCCESS)
+		return (invalid_north_path(game->config.north));
 	return (SUCCESS);
 }
 
@@ -48,6 +57,8 @@ int	get_south_path(char *line, int index, t_game *game)
 	if (!game->config.south)
 		return (ERROR);
 	game->config.seen_id[1]++;
+	if (check_texture_path_existence(game->config.south) != SUCCESS)
+		return (invalid_south_path(game->config.south));
 	return (SUCCESS);
 }
 
@@ -67,6 +78,8 @@ int	get_west_path(char *line, int index, t_game *game)
 	if (!game->config.west)
 		return (ERROR);
 	game->config.seen_id[2]++;
+	if (check_texture_path_existence(game->config.west) != SUCCESS)
+		return (invalid_west_path(game->config.west));
 	return (SUCCESS);
 }
 
@@ -86,5 +99,7 @@ int	get_east_path(char *line, int index, t_game *game)
 	if (!game->config.east)
 		return (ERROR);
 	game->config.seen_id[3]++;
+	if (check_texture_path_existence(game->config.east) != SUCCESS)
+		return (invalid_east_path(game->config.east));
 	return (SUCCESS);
 }

@@ -80,10 +80,6 @@ void	draw_walls(t_data *data, int x)
 	int	end;
 
 	set_tex(data);
-	if (data->side == 0 && data->ray_dir_x > 0)
-		data->tex_x = data->wall_tex->width - data->tex_x - 1;
-	else if (data->side == 1 && data->ray_dir_y < 0)
-		data->tex_x = data->wall_tex->width - data->tex_x - 1;
 	lineheight = (int)(SCREEN_HEIGHT / data->wall_dist);
 	start = -lineheight / 2 + SCREEN_HEIGHT / 2;
 	if (start < 0)

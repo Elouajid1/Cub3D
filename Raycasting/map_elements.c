@@ -47,19 +47,10 @@ void	load_all_textures(t_game *game)
 	load_texture(data, &data->tex_we, game->config.west);
 }
 
-void	map_dimensions(t_data *data)
+void	map_dimensions(t_game *game)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (data->map[i])
-		i++;
-	data->map_height = i * 64;
-	while (data->map[0][j])
-		j++;
-	data->map_width = j * 64;
+	game->data->map_height = game->config.map.height * 64;
+	game->data->map_width = game->config.map.width * 64;
 }
 
 void	set_numbers(t_data *data, int x, int y)
