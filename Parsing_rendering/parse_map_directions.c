@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_directions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:38:44 by moel-aid          #+#    #+#             */
-/*   Updated: 2025/11/17 15:38:48 by moel-aid         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:16:17 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../cub3d.h"
+
+#include "cub3d.h"
 
 int	check_texture_path_existence(char *path)
 {
@@ -22,9 +23,7 @@ int	get_north_path(char *line, int index, t_game *game)
 {
 	char	*path;
 	char	*trimmed_path;
-	size_t	i;
 
-	i = 0;
 	if (game->config.seen_id[0] == 1)
 		return (id_is_duplicate(0));
 	path = skip_identifier_and_spaces(line, index, 2);

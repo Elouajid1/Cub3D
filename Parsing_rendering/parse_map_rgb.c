@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map_rgb.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-aid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-ouaj <mel-ouaj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:24:13 by moel-aid          #+#    #+#             */
-/*   Updated: 2025/11/17 15:24:17 by moel-aid         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:17:36 by mel-ouaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../cub3d.h"
+
+#include "cub3d.h"
 
 int	is_valid_rgb_line(char *rgb_line)
 {
@@ -87,9 +88,7 @@ int	get_ceiling_rgb(t_game *game, char *line)
 int	get_floor_rgb(t_game *game, char *line)
 {
 	char	*rgb_start;
-	int		i;
 
-	i = 0;
 	if (game->config.seen_id[4] > 0)
 	{
 		ft_putendl_fd("Error", 2);
